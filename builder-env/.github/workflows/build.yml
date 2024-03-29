@@ -1,0 +1,47 @@
+name: Publish Builder Images to Docker Hub
+
+on: 
+  workflow_dispatch: # Can be manually triggered
+
+jobs:
+
+  build-images:
+    environment: Publish to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maximize build disk space
+        uses: easimon/maximize-build-space@master
+        with:
+          overprovision-lvm: 'true'
+          remove-android: 'true'
+      - uses: actions/checkout@v4
+
+      - id: build-cu121-py311
+        uses: redhat-actions/buildah-build@v2
+        with:
+          oci: false
+          context: .
+          containerfiles: cu121-py311.Containerfile
+          image: yanwk/comfyui-extras
+          tags: devel-cu121-py311
+
+      - id: build-torch
+        uses: redhat-actions/buildah-build@v2
+        with:
+          oci: false
+          context: .
+          containerfiles: torch.Containerfile
+          image: yanwk/comfyui-extras
+          tags: devel-torch
+
+      - id: push-to-dockerhub
+        uses: redhat-actions/push-to-registry@v2
+        with: 
+          image: yanwk/comfyui-extras
+          tags: | 
+            ${{ steps.build-cu121-py311.outputs.tags }}
+            ${{ steps.build-torch.outputs.tags }}
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_ACCESSTOKEN }}
+      - run: echo "Image pushed to ${{ steps.push-to-dockerhub.outputs.registry-paths }}"
