@@ -14,32 +14,32 @@ jobs:
         with:
           overprovision-lvm: 'true'
           remove-android: 'true'
-      - uses: actions/checkout@v4
-
-      - id: build-cu121-py311
-        uses: redhat-actions/buildah-build@v2
+      - 
+        name: Git checkout
+        uses: actions/checkout@v4
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
         with:
-          oci: false
-          context: ./dev-cu121-py311
-          image: yanwk/comfyui-extras
-          tags: devel-cu121-py311
-
-      - id: build-torch
-        uses: redhat-actions/buildah-build@v2
-        with:
-          oci: false
-          context: ./dev-torch
-          image: yanwk/comfyui-extras
-          tags: devel-torch
-
-      - id: push-to-dockerhub
-        uses: redhat-actions/push-to-registry@v2
-        with: 
-          image: yanwk/comfyui-extras
-          tags: | 
-            ${{ steps.build-cu121-py311.outputs.tags }}
-            ${{ steps.build-torch.outputs.tags }}
-          registry: docker.io
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_ACCESSTOKEN }}
-      - run: echo "Image pushed to ${{ steps.push-to-dockerhub.outputs.registry-paths }}"
+      -
+        name: Build and push 'cu121-py311'
+        uses: docker/build-push-action@v5
+        with:
+          context: ./dev-cu121-py311
+          tags: yanwk/comfyui-extras:devel-cu121-py311
+          push: true
+      -
+        name: Build and push 'cu121-py311'
+        uses: docker/build-push-action@v5
+        with:
+          context: ./dev-torch
+          tags: yanwk/comfyui-extras:devel-torch
+          push: true
