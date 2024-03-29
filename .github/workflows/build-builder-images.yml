@@ -20,8 +20,7 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           oci: false
-          context: ./builder-environments
-          containerfiles: cu121-py311.Containerfile
+          context: ./dev-cu121-py311
           image: yanwk/comfyui-extras
           tags: devel-cu121-py311
 
@@ -29,8 +28,7 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           oci: false
-          context: ./builder-environments
-          containerfiles: torch.Containerfile
+          context: ./dev-torch
           image: yanwk/comfyui-extras
           tags: devel-torch
 
