@@ -1,0 +1,9 @@
+# Auxiliary files for ComfyUI working with Docker
+
+
+* `yanwk/comfyui-extras:devel-cu121-py311`
+** CUDA devel
+
+* `yanwk/comfyui-extras:devel-torch`
+** CUDA devel + PyTorch
+** Used for compiling https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels
