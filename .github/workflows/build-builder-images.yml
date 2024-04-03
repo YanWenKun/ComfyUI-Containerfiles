@@ -30,14 +30,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_ACCESSTOKEN }}
       -
-        name: Build and push 'cu121-py311'
+        name: Build and push 'devel-cu121-py311'
         uses: docker/build-push-action@v5
         with:
           context: ./dev-cu121-py311
           tags: yanwk/comfyui-extras:devel-cu121-py311
           push: true
       -
-        name: Build and push 'cu121-py311'
+        name: Build and push 'devel-torch'
         uses: docker/build-push-action@v5
         with:
           context: ./dev-torch
