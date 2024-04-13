@@ -6,4 +6,4 @@
 
 * `yanwk/comfyui-extras:devel-torch`
 ** CUDA devel + PyTorch
-** Used for compiling https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels
+** Used for compiling https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels/releases/tag/v1
