@@ -14,30 +14,32 @@ FROM docker.io/yanwk/comfyui-boot:cu124 AS buildingStage
 # https://github.com/facebookresearch/xformers/blob/main/README.md#install-troubleshooting
 # https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/
 
+RUN set -eu \
+    && mkdir -p /WORK/wheels
+
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install --break-system-packages \
         -r https://raw.githubusercontent.com/facebookresearch/xformers/main/requirements.txt
 
-WORKDIR /root
 RUN git clone --depth=1 --no-tags --recurse-submodules --shallow-submodules \
-        https://github.com/facebookresearch/xformers.git 
+        https://github.com/facebookresearch/xformers.git \
+        /WORK/xformers
 
 ARG TORCH_CUDA_ARCH_LIST="5.2+PTX;6.0;6.1+PTX;7.5;8.0;8.6;8.9;9.0+PTX"
 
-# Limit max concurrent build jobs.
-# Set to 1 to avoid crash on GitHub CI.
+# Limit max concurrent build jobs. Set to 1 to avoid crash on GitHub CI.
 ARG MAX_JOBS
 
-WORKDIR /root/xformers
-RUN mkdir -p /root/wheels
+WORKDIR /WORK/xformers
+
 RUN --mount=type=cache,target=/root/.cache/pip \
-    --mount=type=cache,target=/root/xformers/build \
-    --mount=type=cache,target=/root/xformers/dist \
-    python3 setup.py bdist_wheel -d /root/wheels
+    --mount=type=cache,target=/WORK/xformers/build \
+    --mount=type=cache,target=/WORK/xformers/dist \
+    python3 setup.py bdist_wheel -d /WORK/wheels
 
 # Save the result
 FROM docker.io/library/alpine:latest AS savingStage
 
 LABEL maintainer="YAN Wenkun <code@yanwk.fun>"
 
-COPY --from=buildingStage /root/wheels /wheels
+COPY --from=buildingStage /WORK/wheels /wheels
