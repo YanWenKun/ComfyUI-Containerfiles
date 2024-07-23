@@ -34,7 +34,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./xformers-cu124
-          file: Dockerfile
           # Build slowly but less crash on GitHub CI.
           build-args: |
             MAX_JOBS=4
