@@ -7,3 +7,6 @@
 * `yanwk/comfyui-extras:devel-torch`
 ** CUDA devel + PyTorch
 ** Used for compiling https://github.com/YanWenKun/ComfyUI-3D-Pack-LinuxWheels/releases/tag/v1
+
+* `yanwk/comfyui-extras:xformers-cu124`
+** xFormers' wheel files built for CUDA 12.4 + PyTorch Nightly
