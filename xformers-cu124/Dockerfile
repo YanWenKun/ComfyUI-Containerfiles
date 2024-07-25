@@ -25,7 +25,7 @@ RUN git clone --depth=1 --no-tags --recurse-submodules --shallow-submodules \
         https://github.com/facebookresearch/xformers.git \
         /WORK/xformers
 
-ARG TORCH_CUDA_ARCH_LIST="5.2+PTX;6.0;6.1+PTX;7.5;8.0;8.6;8.9;9.0+PTX"
+ARG TORCH_CUDA_ARCH_LIST="5.2+PTX"
 
 # Limit max concurrent build jobs. Set to 1 to avoid crash on GitHub CI.
 ARG MAX_JOBS

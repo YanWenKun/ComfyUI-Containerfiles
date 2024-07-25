@@ -2,6 +2,17 @@ name: Publish 'xformers-cu124' to Docker Hub
 
 on: 
   workflow_dispatch: # Can be manually triggered
+    inputs:
+      CUDA_ARCH_LIST:
+        description: 'TORCH_CUDA_ARCH_LIST'
+        required: true
+        type: string
+        default: "5.2+PTX;6.0;6.1+PTX;7.5;8.0;8.6;8.9;9.0+PTX"
+      MAX_JOBS:
+        description: 'MAX_JOBS to compile'
+        required: true
+        type: string
+        default: "1"
 
 jobs:
 
@@ -36,6 +47,7 @@ jobs:
           context: ./xformers-cu124
           # Build slowly but less crash on GitHub CI.
           build-args: |
-            MAX_JOBS=4
+            TORCH_CUDA_ARCH_LIST=${{ inputs.CUDA_ARCH_LIST }}
+            MAX_JOBS=${{ inputs.MAX_JOBS }}
           tags: yanwk/comfyui-extras:xformers-cu124
           push: true
