@@ -29,14 +29,14 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 ################################################################################
 # SageAttention 3 (Blackwell only. May not work since its doc asks for Python 3.13+)
 
-ARG TORCH_CUDA_ARCH_LIST='10.0;12.0'
+# ARG TORCH_CUDA_ARCH_LIST='10.0;12.0'
 
-WORKDIR /WORK/SageAttention/sageattention3_blackwell
+# WORKDIR /WORK/SageAttention/sageattention3_blackwell
 
-RUN --mount=type=cache,target=/root/.cache/pip \
-    --mount=type=cache,target=/WORK/SageAttention/sageattention3_blackwell/build \
-    --mount=type=cache,target=/WORK/SageAttention/sageattention3_blackwell/dist \
-    python3 setup.py bdist_wheel -d /WORK/wheels
+# RUN --mount=type=cache,target=/root/.cache/pip \
+#     --mount=type=cache,target=/WORK/SageAttention/sageattention3_blackwell/build \
+#     --mount=type=cache,target=/WORK/SageAttention/sageattention3_blackwell/dist \
+#     python3 setup.py bdist_wheel -d /WORK/wheels
 
 ################################################################################
 # SpargeAttention
