@@ -1,6 +1,6 @@
 ################################################################################
 # Dockerfile that builds 'yanwk/comfyui-extras:sageattn-py312-cu128-pt29'.
-# Used for compiling xFormers.
+# Used for compiling SageAttention.
 ################################################################################
 
 FROM docker.io/yanwk/comfyui-boot:cu128-megapak-pt29 AS buildingStage
