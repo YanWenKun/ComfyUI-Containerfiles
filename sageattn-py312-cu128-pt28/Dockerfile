@@ -1,5 +1,5 @@
 ################################################################################
-# Dockerfile that builds 'yanwk/comfyui-extras:sageattn-py312'.
+# Dockerfile that builds 'yanwk/comfyui-extras:sageattn-py312-cu128-pt28'.
 # Used for compiling xFormers.
 ################################################################################
 
