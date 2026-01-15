@@ -17,7 +17,7 @@ RUN git clone --depth=1 --no-tags --recurse-submodules --shallow-submodules \
 https://github.com/thu-ml/SageAttention.git \
 /WORK/SageAttention
 
-ARG TORCH_CUDA_ARCH_LIST='8.0;8.6;8.9'
+ARG TORCH_CUDA_ARCH_LIST='8.0;8.6;8.9;10.0;12.0'
 
 WORKDIR /WORK/SageAttention
 
@@ -44,7 +44,7 @@ RUN git clone --depth=1 --no-tags --recurse-submodules --shallow-submodules \
 https://github.com/thu-ml/SpargeAttn.git \
 /WORK/SpargeAttn
 
-ARG TORCH_CUDA_ARCH_LIST='8.0;8.6;8.9;9.0'
+ARG TORCH_CUDA_ARCH_LIST='8.0;8.6;8.9;9.0;10.0;12.0'
 
 WORKDIR /WORK/SpargeAttn
 
