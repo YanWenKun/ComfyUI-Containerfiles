@@ -50,7 +50,7 @@ setup.py
 # Or check in Python:
 # python3.13 -c 'import torch; print(torch._C._cuda_getArchFlags())'
 
-ARG TORCH_CUDA_ARCH_LIST='8.0;8.6;10.0;12.0'
+ARG TORCH_CUDA_ARCH_LIST='8.0;8.6+PTX;10.0;12.0'
 
 WORKDIR /WORK/SageAttention
 
@@ -60,7 +60,7 @@ RUN python3.13 -m build --wheel --no-isolation --outdir /WORK/wheels .
 # SageAttention 3 (Blackwell only)
 # https://github.com/thu-ml/SageAttention/blob/main/sageattention3_blackwell/setup.py
 
-ARG TORCH_CUDA_ARCH_LIST='10.0;12.0'
+ARG TORCH_CUDA_ARCH_LIST='10.0;12.0+PTX'
 
 WORKDIR /WORK/SageAttention/sageattention3_blackwell
 
